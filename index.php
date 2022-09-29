@@ -6,8 +6,18 @@ if( !isset( $_SESSION["login"]) ) {
     exit;
 }
 
+$GLOBALS['TitleName'] = 'Latihan TB Siswa';
+require 'header.php';
 require 'functions.php';
-$siswa = query("SELECT * FROM siswa");
+
+// $jumlahDataPerHalaman = 2;
+// $jumlahData= count(query("SELECT * FROM siswa"));
+// $jumlahHalaman = 
+
+//pagination
+$siswa = query("SELECT * FROM siswa"); 
+// LIMIT 0, $jumlahDataPerHalaman
+
 
 //tombol cari ditekan
 if ( isset($_POST["cari"]) ) {
@@ -25,54 +35,53 @@ if ( isset($_POST["cari"]) ) {
 </head>
 
 <body>
+    <div class="container mt-5 mb-5">
+        <h1 class="text-center">Daftar Siswa</h1>
+        <h1 class="text-center">SMK Kristen Immanuel Pontianak</h1>
 
-<a style="color: red;"href="logout.php">Logout</a>
+    <div class="form-group mt-5">
+        <form action="" method="post" >
+            <div class="row">
+                <div class="input-group mb-2">
+                    <input type="text" name="keyword" class="form-control" autofocus placeholder="Masukkan keyword pencaharian" autocomplete="off">
+                    <button class="btn btn-info" type="submit" name="cari">Cari!</button>
+                </div>
+        </form>
+    </div>
 
-<h1>Daftar Siswa</h1>
-<h1>SMK Kristen Immanuel Pontianak</h1>
-<br>
+        <table class="table table-bordered text-center mt-2">
+            <tr class="table-success">
+                <th>No.</th>
+                <th>Aksi</th>
+                <th>Gambar</th>
+                <th>NIS</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Jurusan</th>
+            </tr>
 
-<a href="tambah.php">Tambah data siswa</a>
-<br><br>
+            <?php $i = 1; ?>
+            <?php foreach( $siswa as $row ) : ?>
+            <tr>
+                <td><?= $i; ?></td>
+                <td>
+                    <a class="btn btn-warning" href="ubah.php?id=<?= $row["id"]; ?>">ubah</a> |
+                    <a class="btn btn-danger" href="hapus.php?id=<?= $row["id"]; ?>" onclick="return confirm('Yakin ga luwh dek?');">hapus</a>
+                </td>
+                <td><img src="Gambar/<?= $row["gambar"]; ?>" width="130"></td>
+                <td><?= $row["NIS"]; ?></td>
+                <td><?= $row["nama"]; ?></td>
+                <td><?= $row["email"]; ?></td>
+                <td><?= $row["jurusan"]; ?></td>
+            </tr>
+            <?php $i++; ?>
+            <?php endforeach; ?>
+        </table>
+    <a class="btn btn-primary" href="tambah.php">Tambah data siswa</a>
+    <br>
+    <a class="btn btn-danger mt-3" href="logout.php">Logout</a>
 
-<form action="" method="post">
-
-    <input type="text" name="keyword" size="40" autofocus placeholder="Masukkan keyword pencarian..." autocomplete="off">
-    <button type="submit" name="cari">Cari!</button>
-
-</form>
-<br>
-
-<table border="1" cellpading="10" cellspacing="0">
-
-    <tr>
-        <th>No.</th>
-        <th>Aksi</th>
-        <th>Gambar</th>
-        <th>NIS</th>
-        <th>Nama</th>
-        <th>Email</th>
-        <th>Jurusan</th>
-    </tr>
-
-    <?php $i = 1; ?>
-    <?php foreach( $siswa as $row ) : ?>
-    <tr>
-        <td><?= $i; ?></td>
-        <td>
-            <a href="ubah.php?id=<?= $row["id"]; ?>">ubah</a> |
-            <a href="hapus.php?id=<?= $row["id"]; ?>" onclick="return confirm('Yakin ga luwh dek?');">hapus</a>
-        </td>
-        <td><img src="Gambar/<?= $row["gambar"]; ?>" width="130"></td>
-        <td><?= $row["NIS"]; ?></td>
-        <td><?= $row["nama"]; ?></td>
-        <td><?= $row["email"]; ?></td>
-        <td><?= $row["jurusan"]; ?></td>
-    </tr>
-    <?php $i++; ?>
-    <?php endforeach; ?>
-
-</table>
+    </div>
 
 </body>
 </html>

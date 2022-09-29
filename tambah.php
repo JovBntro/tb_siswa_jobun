@@ -6,6 +6,8 @@ if( !isset( $_SESSION["login"]) ) {
     exit;
 }
 
+$GLOBALS['TitleName'] = 'Latihan TB Siswa';
+require 'header.php';
 require 'functions.php';
 
 // cek apakah tombol submit sudah ditekan atau belum
