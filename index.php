@@ -10,14 +10,7 @@ $GLOBALS['TitleName'] = 'Latihan TB Siswa';
 require 'header.php';
 require 'functions.php';
 
-// $jumlahDataPerHalaman = 2;
-// $jumlahData= count(query("SELECT * FROM siswa"));
-// $jumlahHalaman = 
-
-//pagination
 $siswa = query("SELECT * FROM siswa"); 
-// LIMIT 0, $jumlahDataPerHalaman
-
 
 //tombol cari ditekan
 if ( isset($_POST["cari"]) ) {
